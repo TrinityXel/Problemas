@@ -37,7 +37,7 @@ def main():
     # Crear los archivos: Comentar para no hacerlo...
     crear_tablas_multiplicar(10, 50)
 
-    print(tablasMultiplicar(5, 0))
+    print(tablasMultiplicar(5, 110))
 
 
 def tablasMultiplicar(tabla: int, linea: int) -> str:
@@ -51,6 +51,10 @@ def tablasMultiplicar(tabla: int, linea: int) -> str:
             resultado = lineas[linea - 1] if linea >= 1 else "0"
     except FileNotFoundError:
         resultado = f"No se encontró el archivo: {nombre}"
+    except IndexError:
+        resultado = "Se a solicitado una linea inexistente o fuera de lugar "\
+                    "cree el multiplo con la función crear_tablas_multiplicar"
+
 
     return resultado
 
