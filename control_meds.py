@@ -1,4 +1,3 @@
-
 SUCURSALES = {}
 SUCURSALES_T = {}
 PACIENTES = {}
@@ -10,7 +9,7 @@ TABLA = [[89, 69, "Hipotension", 1, 15],
          [150, 99, "HTA Sistolica Aislada", 1, 20],
          [169, 109, "HTA Grado 1", 1, 10],
          [189, 119, "HTA Grado 2", 1, 20],
-         [200, 150, "HTA Grado 3", 1, 50]]
+         [300, 300, "HTA Grado 3", 1, 50]] # Ponemos el limite "imaginario" para el máximo
 
 
 def add_datos(sucursales: int, pacientes: int)-> bool:
@@ -35,8 +34,9 @@ def repartir(sucursal: int, cantidad: int):
     SUCURSALES[sucursal] -= cantidad
 
 def get_min_max():
-     
+    # Creamos un nuevo diccionaro en base a SUCURSALES pero ordenado 
     dict_ord = {key: val for key, val in sorted(SUCURSALES.items(), key=lambda dato: dato[1])}
+    # Lo convertimos  a lista para obtener el mínimo y máximo
     lista = list(dict_ord.items())
 
     min = lista[0]
@@ -55,8 +55,13 @@ def add_paciente(paciente: int, sucursal: int, sistolica: int, diastolica: int):
     datos = []
     for diagnostico in TABLA:
         if sistolica <= diagnostico[0] and diastolica <= diagnostico[1]:
-            #print(diagnostico[2]) # Descomentar para debug, mostrará el nombre del diagnostico
-            datos.extend([sucursal, diagnostico[2], diagnostico[3], diagnostico[4]])
+            # print(diagnostico[2]) # Descomentar para debug, mostrará el nombre del diagnostico
+            datos.extend([sucursal,
+                          diagnostico[2], # Nombre del Diagnostico ejem. HTA Grado 1
+                          diagnostico[3], # Tipo de Medicamento
+                          diagnostico[4]  # Dosis  
+                          ])
+
             break
 
     PACIENTES[paciente] = datos
@@ -105,7 +110,6 @@ def main():
         porcent = calc_porcentaje(SUCURSALES_T[sucursal], cantidad)
         print(f"{sucursal} {porcent}%")
 
-   
 
 if __name__ == "__main__":
     main()
